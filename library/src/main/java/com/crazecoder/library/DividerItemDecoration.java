@@ -1,5 +1,6 @@
 package com.crazecoder.library;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -43,6 +44,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         mOrientation = orientation;
     }
 
+    @SuppressLint("LongLogTag")
     @Override
     public void onDraw(Canvas c, RecyclerView parent) {
         Log.v("recyclerview - itemdecoration", "onDraw()");
