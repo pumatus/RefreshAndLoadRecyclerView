@@ -1,6 +1,7 @@
 package com.crazecoder.library;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -43,7 +44,7 @@ public class LoadingMoreFooter extends LinearLayout {
         progressCon.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        AVLoadingIndicatorView progressView = new  AVLoadingIndicatorView(this.getContext());
+        AVLoadingIndicatorView progressView = new AVLoadingIndicatorView(this.getContext());
         progressView.setIndicatorColor(0xffB5B5B5);
         progressView.setIndicatorId(ProgressStyle.BallSpinFadeLoader);
         progressCon.setView(progressView);
@@ -64,7 +65,7 @@ public class LoadingMoreFooter extends LinearLayout {
         if(style == ProgressStyle.SysProgress){
             progressCon.setView(new ProgressBar(mContext, null, android.R.attr.progressBarStyle));
         }else{
-            AVLoadingIndicatorView progressView = new  AVLoadingIndicatorView(this.getContext());
+            AVLoadingIndicatorView progressView = new AVLoadingIndicatorView(this.getContext());
             progressView.setIndicatorColor(0xffB5B5B5);
             progressView.setIndicatorId(style);
             progressCon.setView(progressView);
@@ -83,7 +84,8 @@ public class LoadingMoreFooter extends LinearLayout {
                 this.setVisibility(View.GONE);
                 break;
             case STATE_NOMORE:
-                mText.setText("加载完成");
+                mText.setTextColor(Color.GRAY);
+                mText.setText("已经到底了");
                 progressCon.setVisibility(View.GONE);
                 this.setVisibility(View.VISIBLE);
                 break;

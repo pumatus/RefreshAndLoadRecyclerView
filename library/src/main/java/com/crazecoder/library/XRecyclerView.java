@@ -73,6 +73,23 @@ public class XRecyclerView extends RecyclerView {
         mHeaderViews.add(view);
     }
 
+    public void showItemDecoration(){
+        if(getLayoutManager() instanceof LinearLayoutManager){
+            addItemDecoration(new DividerItemDecoration(getContext(),
+                    DividerItemDecoration.VERTICAL_LIST));
+        }else {
+            throw new RuntimeException("must be LinearLayoutManager");
+        }
+
+    }
+    public void showGridItemDecoration(){
+        if(getLayoutManager() instanceof GridLayoutManager ||getLayoutManager() instanceof StaggeredGridLayoutManager){
+            addItemDecoration(new DividerGridItemDecoration(getContext()));
+        }else {
+            throw new RuntimeException("must be GridLayoutManager or StaggeredGridLayoutManager");
+        }
+
+    }
     private void layoutGridAttach(final GridLayoutManager manager) {
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -94,13 +111,13 @@ public class XRecyclerView extends RecyclerView {
 
         View footView = mFootViews.get(0);
         if(previousTotal <  getLayoutManager().getItemCount()) {
-            if(footView instanceof  LoadingMoreFooter) {
+            if(footView instanceof LoadingMoreFooter) {
                 ( (LoadingMoreFooter) footView ).setState(LoadingMoreFooter.STATE_COMPLETE);
             } else{
                 footView.setVisibility(View.GONE);
             }
         } else {
-            if(footView instanceof  LoadingMoreFooter) {
+            if(footView instanceof LoadingMoreFooter) {
                 ( (LoadingMoreFooter) footView ).setState(LoadingMoreFooter.STATE_NOMORE);
             }else{
                 footView.setVisibility(View.GONE);
@@ -114,7 +131,7 @@ public class XRecyclerView extends RecyclerView {
         isLoadingData = false;
         View footView = mFootViews.get(0);
         isnomore = true;
-        if(footView instanceof  LoadingMoreFooter) {
+        if(footView instanceof LoadingMoreFooter) {
             ( (LoadingMoreFooter) footView ).setState(LoadingMoreFooter.STATE_NOMORE);
         }else{
             footView.setVisibility(View.GONE);
@@ -191,14 +208,13 @@ public class XRecyclerView extends RecyclerView {
             if (layoutManager.getChildCount() > 0
                     && lastVisibleItemPosition >= layoutManager.getItemCount() - 1 &&  layoutManager.getItemCount() > layoutManager.getChildCount()
                     && !isnomore && mRefreshHeader.getState() < ArrowRefreshHeader.STATE_REFRESHING&&!isLoadingData) {
-
                 View footView = mFootViews.get(0);
-                isLoadingData = true;
-                if(footView instanceof  LoadingMoreFooter) {
+                if(footView instanceof LoadingMoreFooter) {
                     ( (LoadingMoreFooter) footView ).setState(LoadingMoreFooter.STATE_LAODING);
                 } else{
                     footView.setVisibility(View.VISIBLE);
                 }
+                isLoadingData = true;
                 mLoadingListener.onLoadMore();
             }
         }
@@ -256,7 +272,7 @@ public class XRecyclerView extends RecyclerView {
         int firstVisibleItemPosition;
         if (layoutManager instanceof GridLayoutManager) {
             firstVisibleItemPosition = ((GridLayoutManager) layoutManager).findFirstVisibleItemPosition();
-        } else if ( layoutManager instanceof StaggeredGridLayoutManager ) {
+        } else if ( layoutManager instanceof StaggeredGridLayoutManager) {
             int[] into = new int[((StaggeredGridLayoutManager) layoutManager).getSpanCount()];
             ((StaggeredGridLayoutManager) layoutManager).findFirstVisibleItemPositions(into);
             firstVisibleItemPosition = findMax(into);
