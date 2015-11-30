@@ -5,8 +5,8 @@ apply plugin: 'com.jfrog.bintray'
 version = "1.1.0"
 group = "com.crazecoder"
 
-def siteUrl = 'https://github.com/rsaiyuki/recyclerview'
-def gitUrl = 'https://github.com/rsaiyuki/recyclerview.git'
+def siteUrl = 'https://github.com/rsaiyuki/RefreshAndLoadRecyclerView'
+def gitUrl = 'https://github.com/rsaiyuki/RefreshAndLoadRecyclerView.git'
 
 android {
     compileSdkVersion 23
@@ -88,7 +88,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "maven"
-        name = "rnprecyclerview"    //发布到JCenter上的项目名字
+        name = "RefreshAndLoadRecyclerView"    //发布到JCenter上的项目名字
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
